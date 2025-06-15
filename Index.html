@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT"
+      crossorigin="anonymous"
+    />
+    <title>Happy Father's Day, Dad!</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Georgia", serif;
+        line-height: 1.6;
+        background: linear-gradient(
+          135deg,
+          #2c3e50 0%,
+          #3498db 50%,
+          #34495e 100%
+        );
+        min-height: 100vh;
+        color: #333;
+      }
+
+      /* Navigation */
+      nav {
+        background: rgba(44, 62, 80, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 1rem 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+      }
+
+      nav a {
+        color: #ecf0f1;
+        text-decoration: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      nav a:hover,
+      nav a.active {
+        background: #e74c3c;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+      }
+
+      /* Main Content */
+      main {
+        margin-top: 80px;
+        padding: 2rem;
+      }
+
+      .page {
+        display: none;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 3rem;
+        margin: 2rem auto;
+        max-width: 900px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        animation: fadeIn 0.8s ease-in;
+      }
+
+      .page.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      h1,
+      h2 {
+        color: #2c3e50;
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 3rem;
+        background: linear-gradient(45deg, #e74c3c, #3498db);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 2rem;
+      }
+
+      .hero {
+        text-align: center;
+        padding: 2rem 0;
+      }
+
+      .hero-image {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        margin: 0 auto 2rem;
+        background: linear-gradient(45deg, #e74c3c, #3498db);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        color: white;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      .hero p {
+        font-size: 1.3rem;
+        color: #555;
+        font-style: italic;
+        margin-bottom: 2rem;
+      }
+
+      /* Memory Grid */
+      .memory-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .memory-card {
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .memory-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .memory-card h3 {
+        color: #e74c3c;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+      }
+
+      /* Photo Gallery */
+      .photo-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .photo-placeholder {
+        height: 200px;
+        background: linear-gradient(45deg, #bdc3c7, #ecf0f1);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #7f8c8d;
+        font-size: 3rem;
+        transition: transform 0.3s ease;
+      }
+
+      .photo-placeholder:hover {
+        transform: scale(1.05);
+      }
+
+      /* Lessons List */
+      .lessons-list {
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        padding: 2rem;
+        border-radius: 15px;
+        margin: 2rem 0;
+      }
+
+      .lessons-list ul {
+        list-style: none;
+      }
+
+      .lessons-list li {
+        padding: 1rem;
+        margin: 0.5rem 0;
+        background: white;
+        border-radius: 10px;
+        border-left: 4px solid #e74c3c;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .lessons-list li:hover {
+        transform: translateX(10px);
+      }
+
+      /* Contact Form */
+      .contact-form {
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        padding: 2rem;
+        border-radius: 15px;
+        margin: 2rem 0;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #2c3e50;
+        font-weight: bold;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid #bdc3c7;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+      }
+
+      input:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #e74c3c;
+      }
+
+      .btn {
+        background: linear-gradient(45deg, #e74c3c, #c0392b);
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 25px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(231, 76, 60, 0.4);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        nav ul {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        .page {
+          margin: 1rem;
+          padding: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#memories" class="nav-link">Memories</a></li>
+        <li><a href="#photos" class="nav-link">Complements</a></li>
+        <li><a href="#lessons" class="nav-link">Life Lessons</a></li>
+        <li><a href="#message" class="nav-link">Message</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <!-- Home Page -->
+      <div id="home" class="page active">
+        <div class="hero">
+          <div class="hero-image">👨‍👧‍👦</div>
+          <h1>Happy Father's Day, Dad!</h1>
+          <p>
+            "A father is someone you look up to no matter how tall you grow."
+          </p>
+          <p>
+            This website is dedicated to the most amazing dad in the world.
+            Thank you for being my hero, my guide, and my biggest supporter.
+            Your love and wisdom have shaped who I am today.
+          </p>
+        </div>
+      </div>
+
+      <!-- Memories Page -->
+      <div id="memories" class="page">
+        <h2>Our Special Memories</h2>
+        <div class="memory-grid">
+          <div class="memory-card">
+            <h3>Study Time</h3>
+            <p>
+              Remember all the times you used to help me study, well that is the
+              reason i have reache this far into the world, the way you push me
+              is something i will never forget
+            </p>
+          </div>
+          <div class="memory-card">
+            <h3>⚽ Weekend Games</h3>
+            <p>
+              From playing cricket in the driveway to cheering at my games, you
+              were always there.
+            </p>
+          </div>
+          <div class="memory-card">
+            <h3>🔧 DIY Projects</h3>
+            <p>
+              You turned everything that looked bad into something better, just
+              so that when my friends come, they will fell like our house is
+              modern
+            </p>
+          </div>
+          <div class="memory-card">
+            <h3>🚗 Road Trip Stories</h3>
+            <p>
+              Those long car rides filled with your stories, terrible dad jokes,
+              and favorite songs. You made every mile an adventure and every
+              destination special.
+            </p>
+          </div>
+          <div class="memory-card">
+            <h3>🦸 Super dad</h3>
+            <p>
+              Someone is sick? Dont worry, super dad is here to rescue. Helping
+              anyone in need from family to strangers, if you are in trouble
+              just say "PAPA!" and help will be on the way
+            </p>
+          </div>
+          <div class="memory-card">
+            <h3>🍳 7 days Father & Son</h3>
+            <p>
+              Mama, the backbone of our family is in india and so is our beloved
+              sister/daughter. It was just the two of us watching Ted lasso
+              every night, having dinner of the delicious oily naan with
+              delicious dal and paneer. You risked meeting your family just so
+              that you can see my concert.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photos Page -->
+      <div id="photos" class="page">
+        <h2>Photo Gallery</h2>
+        <p style="text-align: center; margin-bottom: 2rem">
+          A collection of our favorite moments together
+        </p>
+        <div class="photo-gallery">
+          <div class="photo-placeholder"><img src="" alt="" /></div>
+          <div class="card">
+            <h1>Poonam</h1>
+
+            <p>
+                He always brings life to each party with a little bit of humor
+            </p>
+          </div>
+          <div class="card">
+            <h1>Ina</h1>
+
+            <p> He is the Naradmuni of the gang</p>
+          </div>
+          <div class="card">
+            <h1>Dadi</h1>
+
+            <p>
+                I am most comfortable with him and i can say anthing from my life
+              with him
+            </p>
+          </div>
+          <div class="card">
+            <h1>Shweta</h1>
+
+            <p> Gaurav is a Jolly and fun loving person</p>
+          </div>
+          <div class="card">
+            <h1>Tanu</h1>
+
+            <p> A very social, and nice friend</p>
+          </div>
+          <div class="card">
+            <h1>Mohit</h1>
+
+            <p> Gaurav is the Shaan</p>
+          </div>
+          <div class="card">
+            <h1>Raghav</h1>
+
+            <p>
+                  Gaurav is a fun loving, great friend, who you can always count on
+            </p>
+          </div>
+          <div class="card">
+            <h1>Vishal</h1>
+
+            <p>
+                Gaurav is a friend whom you can trust, rely on and hold on for the
+              rest of your life
+            </p>
+          </div>
+        </div>
+        <p
+          style="
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 2rem;
+          "
+        ></p>
+      </div>
+
+      <!-- Life Lessons Page -->
+      <div id="lessons" class="page">
+        <h2>Life Lessons You Taught Me</h2>
+        <div class="lessons-list">
+          <ul>
+            <li>
+              <strong>Work Hard, Stay Humble:</strong> You showed me that
+              success comes from dedication, but true character comes from
+              staying grounded.
+            </li>
+            <li>
+              <strong>Treat Everyone with Respect:</strong> From the CEO to the
+              janitor, you taught me that every person deserves kindness and
+              dignity.
+            </li>
+            <li>
+              <strong>Family Comes First:</strong> No matter how busy life gets,
+              family is the foundation that keeps us strong.
+            </li>
+            <li>
+              <strong>Learn from Mistakes:</strong> You taught me that failures
+              aren't endings - they're just new beginnings in disguise.
+            </li>
+            <li>
+              <strong>Keep Your Word:</strong> Your handshake was your bond, and
+              you showed me that integrity is everything.
+            </li>
+            <li>
+              <strong>Never Stop Learning:</strong> You were always curious,
+              always reading, always growing. You taught me that education never
+              ends.
+            </li>
+            <li>
+              <strong>Laugh Often:</strong> Your sense of humor got us through
+              tough times and made good times even better.
+            </li>
+            <li>
+              <strong>Stand Up for What's Right:</strong> Even when it's hard,
+              you taught me to have the courage of my convictions.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Message Page -->
+      <div id="message" class="page">
+        <h2>A Message for Dad</h2>
+        <div class="contact-form">
+          <p
+            style="
+              text-align: center;
+              margin-bottom: 2rem;
+              font-size: 1.2rem;
+              color: #555;
+            "
+          >
+            Dear Dad, here's what I want you to know...
+          </p>
+
+          <div
+            style="
+              background: white;
+              padding: 2rem;
+              border-radius: 10px;
+              border-left: 4px solid #e74c3c;
+              margin: 2rem 0;
+            "
+          >
+            <p style="font-size: 1.1rem; line-height: 1.8; color: #444">
+              Dad, as I've grown older, I've come to realize just how much
+              you've shaped the person I am today. Your quiet strength, your
+              unwavering support, and your endless patience have been the
+              foundation of my life.
+            </p>
+            <p
+              style="
+                font-size: 1.1rem;
+                line-height: 1.8;
+                color: #444;
+                margin-top: 1rem;
+              "
+            >
+              You didn't just teach me how to ride a bike or throw a ball - you
+              taught me how to be a good person. You showed me what it means to
+              work hard, love deeply, and never give up on the people who
+              matter.
+            </p>
+            <p
+              style="
+                font-size: 1.1rem;
+                line-height: 1.8;
+                color: #444;
+                margin-top: 1rem;
+              "
+            >
+              Thank you for every sacrifice you made, every lesson you taught,
+              and every moment you chose to be present. Thank you for believing
+              in me even when I didn't believe in myself.
+            </p>
+            <p
+              style="
+                font-size: 1.1rem;
+                line-height: 1.8;
+                color: #444;
+                margin-top: 1rem;
+                text-align: center;
+                font-weight: bold;
+              "
+            >
+              I love you more than words can express. Happy Father's Day!
+            </p>
+          </div>
+
+          <div style="text-align: center; margin-top: 3rem">
+            <p style="font-size: 1.5rem; color: #e74c3c; font-weight: bold">
+              You're not just my dad - you're my hero. ❤️
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Navigation functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        const navLinks = document.querySelectorAll(".nav-link");
+        const pages = document.querySelectorAll(".page");
+
+        navLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute("href").substring(1);
+
+            // Remove active class from all nav links
+            navLinks.forEach((nav) => nav.classList.remove("active"));
+
+            // Add active class to clicked nav link
+            this.classList.add("active");
+
+            // Hide all pages
+            pages.forEach((page) => page.classList.remove("active"));
+
+            // Show target page
+            document.getElementById(targetId).classList.add("active");
+          });
+        });
+
+        // Add some interactive elements
+        const memoryCards = document.querySelectorAll(".memory-card");
+        memoryCards.forEach((card) => {
+          card.addEventListener("click", function () {
+            this.style.transform = "scale(1.02)";
+            setTimeout(() => {
+              this.style.transform = "";
+            }, 200);
+          });
+        });
+
+        // Add floating hearts animation
+        function createHeart() {
+          const heart = document.createElement("div");
+          heart.innerHTML = "❤️";
+          heart.style.position = "fixed";
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.bottom = "-50px";
+          heart.style.fontSize = "20px";
+          heart.style.pointerEvents = "none";
+          heart.style.zIndex = "999";
+          heart.style.animation = "floatUp 4s linear forwards";
+
+          document.body.appendChild(heart);
+
+          setTimeout(() => {
+            heart.remove();
+          }, 4000);
+        }
+
+        // Add CSS for floating hearts
+        const style = document.createElement("style");
+        style.textContent = `
+                @keyframes floatUp {
+                    to {
+                        transform: translateY(-100vh) rotate(360deg);
+                        opacity: 0;
+                    }
+                }
+            `;
+        document.head.appendChild(style);
+
+        // Create hearts periodically
+        setInterval(createHeart, 3000);
+      });
+    </script>
+  </body>
+</html>
